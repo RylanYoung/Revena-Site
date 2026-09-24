@@ -2,6 +2,28 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/solar",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solar/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solar/:slug.html",
+      "destination": "/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/solar/:path*",
+      "destination": "/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
