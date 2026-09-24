@@ -476,7 +476,12 @@
   } else {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
+        /* A fast flick, a dragged scrollbar or a jump to an anchor can carry
+           an element from below the viewport to above it between two observer
+           samples, so it never once reports as intersecting. Without this it
+           stays at opacity 0 permanently and the content is simply gone. */
+        var scrolledPast = entry.boundingClientRect.bottom <= 0;
+        if (!entry.isIntersecting && !scrolledPast) return;
         revealNow(entry.target);
         io.unobserve(entry.target);
       });
